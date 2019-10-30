@@ -9,8 +9,12 @@ defmodule Digester.Worker do
       {:ok, %{}}
     end
   
-    def handle_call({:digest, body}, _from, state) do      
-      {:reply, :crypto.hash(:md5 , body) |> Base.encode16(), state}  
+    def handle_call({:digest, body}, _from, state) do            
+      {:reply, digest(body),  state}
     end    
+
+    def digest(body) do 
+      :crypto.hash(:md5 , body) |> Base.encode16()
+    end
 end
   
